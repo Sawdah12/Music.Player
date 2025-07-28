@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arijit Singh - Complete Discography with Player</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Common Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #2a0845, #6441A5);
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* Discography Page Styles */
+    .discography-page {
+      padding: 20px;
+      display: block;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header h1 {
+      color: #ffffff;
+      font-size: 2.8em;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .header p {
+      color: #d1c4e9;
+      max-width: 600px;
+      margin: 15px auto;
+      line-height: 1.6;
+      font-size: 1.1em;
+    }
+
+    .section-title {
+      color: #ffffff;
+      font-size: 1.8em;
+      margin: 40px 0 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .song-list {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .song {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+    }
+
+    .song:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .song-number {
+      color: #d1c4e9;
+      margin-right: 25px;
+      font-size: 1.5em;
+      min-width: 40px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .song-info {
+      flex-grow: 1;
+    }
+
+    .song-title {
+      font-size: 1.3em;
+      margin-bottom: 8px;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .song-album {
+      font-size: 1em;
+      color: #b39ddb;
+    }
+
+    .song-features {
+      font-size: 0.9em;
+      color: #9575cd;
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+      color: #b39ddb;
+      font-size: 0.9em;
+      padding-top: 20px;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+   
+    /* Music Player Styles */
+    .music-player {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .album-art {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s;
+    }
+
+    .album-art:hover {
+      transform: scale(1.02);
+    }
+
+    .song-info {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .song-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .artist-name {
+      font-size: 1.3rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .progress-container {
+      width: 90%;
+      max-width: 400px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      margin: 10px auto 5px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .progress {
+      height: 100%;
+      background: #ffffff;
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .time-info {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 400px;
+      margin: 5px auto 15px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin: 5px 0;
+      position: relative;
+    }
+
+    .control-btn {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #4a235a;
+    }
+
+    .play-btn {
+      background: #4a235a;
+      width: 70px;
+      height: 70px;
+      font-size: 1.8rem;
+      box-shadow: 0 5px 15px rgba(201, 186, 191, 0.4);
+    }
+
+    .play-btn:hover {
+      transform: scale(1.05);
+      background: #4a235a;
+    }
+
+    .repeat-btn.active {
+      color: #4a235a;
+    }
+
+    .volume-panel {
+      position: relative;
+      margin-left: 10px;
+    }
+
+    .volume-toggle {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #ffffff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .volume-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .volume-control {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px 10px;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 50px;
+      z-index: 10;
+    }
+
+    .volume-control.show {
+      display: flex;
+    }
+
+    .volume-slider {
+      -webkit-appearance: none;
+      width: 120px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      outline: none;
+      transform: rotate(-90deg);
+      margin: 30px 0;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      background: #4a235a;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .playlist {
+      width: 90%;
+      max-width: 400px;
+      max-height: 200px;
+      margin: 20px auto;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #4a235a rgba(255, 255, 255, 0.1);
+    }
+
+    .playlist::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .playlist::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    .playlist::-webkit-scrollbar-thumb {
+      background: #4a235a;
+      border-radius: 10px;
+    }
+
+    .playlist-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 5px;
+    }
+
+    .playlist-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .playlist-item.active {
+      background: rgba(253, 121, 168, 0.2);
+    }
+
+    .playlist-item img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .volume-control {
+        right: auto;
+        left: 50%;
+        top: 60px;
+        transform: translateX(-50%);
+      }
+      
+      .volume-slider {
+        transform: rotate(0);
+        margin: 10px 0;
+      }
+
+      .song {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      .song-number {
+        margin-right: 0;
+        margin-bottom: 15px;
+        text-align: left;
+      }
+
+      .header h1 {
+        font-size: 2.2em;
+      }
+
+      .header img {
+        width: 160px;
+        height: 160px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .album-art {
+        width: 200px;
+        height: 200px;
+      }
+      
+      .song-title {
+        font-size: 1.5rem;
+      }
+      
+      .artist-name {
+        font-size: 1.1rem;
+      }
+      
+      .controls {
+        gap: 15px;
+      }
+      
+      .control-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+      
+      .play-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 1.6rem;
+      }
+      
+      .volume-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Discography Page -->
+  <div class="discography-page" id="discographyPage">
+    <div class="header">
+      <img src="E:\projects\Music Player\pics\ali zafar.jpg" alt="Arijit Singh">
+      <h1>Ali Zafar</h1>
+      <p>Pakistani playback singer and music composer known for his soulful voice and romantic ballads. One of the most influential and celebrated singers in the pakistani music industry.</p>
+     
+    </div>
+
+    <div class="song-list">
+      <div class="category">
+        <h2 class="section-title">Popular Songs</h2>
+        
+        <div class="song" data-song-index="0">
+          <div class="song-number">1</div>
+          <div class="song-info">
+            <div class="song-title">Tu Janne na</div>
+          </div>
+        </div>
+         
+        <div class="song" data-song-index="0">
+          <div class="song-number">1</div>
+          <div class="song-info">
+            <div class="song-title">Larsha Pekhawar ta </div>
+          </div>
+        </div>
+
+        <div class="song" data-song-index="1">
+          <div class="song-number">2</div>
+          <div class="song-info">
+            <div class="song-title">Jhoom</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>All songs belong to Atif Aslam and respective copyright holders</p>
+      <p>Data sourced from Spotify | Updated July 2023</p>
+    </div>
+  </div>
+
+  <!-- Music Player -->
+  <div class="music-player" id="musicPlayer">
+    <button class="back-btn" id="backBtn" title="Back to Discography">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    
+    <img src="" alt="Album Art" class="album-art" id="albumArt">
+    
+    <div class="song-info">
+      <h2 class="song-title" id="songTitle">Song Title</h2>
+      <p class="artist-name" id="artistName">Artist Name</p>
+    </div>
+    
+    <div class="progress-container" id="progressContainer">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div class="time-info">
+      <span class="current-time" id="currentTime">0:00</span>
+      <span class="duration" id="duration">0:00</span>
+    </div>
+    
+    <div class="controls">
+      <button class="control-btn repeat-btn" id="repeatBtn" title="Repeat">
+        <i class="fas fa-redo"></i>
+      </button>
+      
+      <button class="control-btn" id="prevBtn" title="Previous">
+        <i class="fas fa-step-backward"></i>
+      </button>
+      <button class="control-btn play-btn" id="playBtn" title="Play/Pause">
+        <i class="fas fa-play" id="playIcon"></i>
+      </button>
+      <button class="control-btn" id="nextBtn" title="Next">
+        <i class="fas fa-step-forward"></i>
+      </button>
+      
+      <div class="volume-panel">
+        <button class="volume-toggle" id="volumeToggle" title="Volume">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <div class="volume-control" id="volumeControl">
+          <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.7" title="Volume">
+        </div>
+      </div>
+    </div>
+    
+    <div class="playlist" id="playlist">
+      <!-- Playlist items will be added dynamically -->
+    </div>
+  </div>
+
+  <script>
+    // Song data - Replace with your actual song URLs
+    const songs = [
+       {
+        title: 'Lu Janne na',
+        artist: 'Ali Zafar',
+        cover: 'E:/projects/Music Player/artist/ali zafar/tu janne na.jpg',
+        file: 'E:/projects/Music Player/artist/ali zafar/Tu Jaanay Na Jhoom 128 Kbps.mp3'
+      },
+      {
+        title: 'Larsha Pekhawar ta',
+        artist: 'Ali Zafar',
+        cover: 'E:/projects/Music Player/artist/ali zafar/lar sha pekhawar ta.jpg',
+        file: 'E:/projects/Music Player/artist/ali zafar/Larsha Pekhawar (PenduJatt.Com.Se).mp3'
+      },
+      {
+        title: 'jhoom',
+        artist: 'Ali Zafar',
+        cover: 'E:/projects/Music Player/artist/ali zafar/jhoom.jpg',
+        file: 'E:/projects/Music Player/artist/ali zafar/Dil Jhoom Ali Zafar 128 Kbps (1).mp3'
+      },
+    ];
+
+    // DOM Elements
+    const discographyPage = document.getElementById('discographyPage');
+    const musicPlayer = document.getElementById('musicPlayer');
+    const backBtn = document.getElementById('backBtn');
+    const albumArt = document.getElementById('albumArt');
+    const songTitle = document.getElementById('songTitle');
+    const artistName = document.getElementById('artistName');
+    const progress = document.getElementById('progress');
+    const progressContainer = document.getElementById('progressContainer');
+    const currentTimeEl = document.getElementById('currentTime');
+    const durationEl = document.getElementById('duration');
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const repeatBtn = document.getElementById('repeatBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeToggle = document.getElementById('volumeToggle');
+    const volumeControl = document.getElementById('volumeControl');
+    const playlistEl = document.getElementById('playlist');
+    
+    // Audio Element
+    const audio = new Audio();
+    
+    let currentSongIndex = 0;
+    let isPlaying = false;
+    let isRepeat = false;
+    
+    // Initialize player
+    function initPlayer() {
+      loadSong(songs[currentSongIndex]);
+      renderPlaylist();
+      audio.volume = volumeSlider.value;
+    }
+    
+    // Load song
+    function loadSong(song) {
+      songTitle.textContent = song.title;
+      artistName.textContent = song.artist;
+      albumArt.src = song.cover;
+      audio.src = song.file;
+      
+      // Update active item in playlist
+      const playlistItems = document.querySelectorAll('.playlist-item');
+      playlistItems.forEach(item => item.classList.remove('active'));
+      playlistItems[currentSongIndex].classList.add('active');
+    }
+    
+    // Play song
+    function playSong() {
+      isPlaying = true;
+      playIcon.classList.replace('fa-play', 'fa-pause');
+      audio.play();
+    }
+    
+    // Pause song
+    function pauseSong() {
+      isPlaying = false;
+      playIcon.classList.replace('fa-pause', 'fa-play');
+      audio.pause();
+    }
+    
+    // Previous song
+    function prevSong() {
+      currentSongIndex--;
+      if (currentSongIndex < 0) {
+        currentSongIndex = songs.length - 1;
+      }
+      loadSong(songs[currentSongIndex]);
+      // Force play the song regardless of previous state
+      isPlaying = true;
+      playSong();
+    }
+    
+    // Next song
+    function nextSong() {
+      currentSongIndex++;
+      if (currentSongIndex > songs.length - 1) {
+        currentSongIndex = 0;
+      }
+      loadSong(songs[currentSongIndex]);
+      // Force play the song regardless of previous state
+      isPlaying = true;
+      playSong();
+    }
+    
+    // Toggle repeat
+    function toggleRepeat() {
+      isRepeat = !isRepeat;
+      repeatBtn.classList.toggle('active', isRepeat);
+    }
+    
+    // Update progress bar
+    function updateProgress(e) {
+      const { duration, currentTime } = e.srcElement;
+      const progressPercent = (currentTime / duration) * 100;
+      progress.style.width = `${progressPercent}%`;
+      
+      // Update time display
+      const durationMinutes = Math.floor(duration / 60);
+      let durationSeconds = Math.floor(duration % 60);
+      if (durationSeconds < 10) durationSeconds = `0${durationSeconds}`;
+      
+      const currentMinutes = Math.floor(currentTime / 60);
+      let currentSeconds = Math.floor(currentTime % 60);
+      if (currentSeconds < 10) currentSeconds = `0${currentSeconds}`;
+      
+      if (duration) {
+        durationEl.textContent = `${durationMinutes}:${durationSeconds}`;
+      }
+      currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
+    }
+    
+    // Set progress
+    function setProgress(e) {
+      const width = this.clientWidth;
+      const clickX = e.offsetX;
+      const duration = audio.duration;
+      audio.currentTime = (clickX / width) * duration;
+    }
+    
+    // Set volume
+    function setVolume() {
+      audio.volume = this.value;
+      // Update volume icon
+      const volumeIcon = volumeToggle.querySelector('i');
+      if (this.value == 0) {
+        volumeIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+        volumeIcon.classList.replace('fa-volume-down', 'fa-volume-mute');
+      } else if (this.value < 0.5) {
+        volumeIcon.classList.replace('fa-volume-up', 'fa-volume-down');
+        volumeIcon.classList.replace('fa-volume-mute', 'fa-volume-down');
+      } else {
+        volumeIcon.classList.replace('fa-volume-down', 'fa-volume-up');
+        volumeIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+      }
+    }
+    
+    // Toggle volume control
+    function toggleVolumeControl() {
+      volumeControl.classList.toggle('show');
+    }
+    
+    // Close volume control when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!volumeToggle.contains(e.target) && !volumeControl.contains(e.target)) {
+        volumeControl.classList.remove('show');
+      }
+    });
+    
+    // Handle song end
+    function handleSongEnd() {
+      if (isRepeat) {
+        audio.currentTime = 0;
+        audio.play();
+      } else {
+        nextSong();
+      }
+    }
+    
+    // Render playlist
+    function renderPlaylist() {
+      playlistEl.innerHTML = '';
+      songs.forEach((song, index) => {
+        const playlistItem = document.createElement('div');
+        playlistItem.classList.add('playlist-item');
+        if (index === currentSongIndex) {
+          playlistItem.classList.add('active');
+        }
+        playlistItem.innerHTML = `
+          <img src="${song.cover}" alt="${song.title}">
+          <div class="playlist-info">
+            <h4>${song.title}</h4>
+            <p>${song.artist}</p>
+          </div>
+        `;
+        playlistItem.addEventListener('click', () => {
+          currentSongIndex = index;
+          loadSong(songs[currentSongIndex]);
+          playSong();
+        });
+        playlistEl.appendChild(playlistItem);
+      });
+    }
+    
+    // Show music player with selected song
+    function showMusicPlayer(index) {
+      currentSongIndex = index;
+      discographyPage.style.display = 'none';
+      musicPlayer.style.display = 'flex';
+      initPlayer();
+      playSong();
+    }
+    
+    // Show discography page
+    function showDiscography() {
+      pauseSong();
+      discographyPage.style.display = 'block';
+      musicPlayer.style.display = 'none';
+    }
+    
+    // Event listeners for discography songs
+    document.querySelectorAll('.song').forEach(song => {
+      song.addEventListener('click', function() {
+        const songIndex = parseInt(this.getAttribute('data-song-index'));
+        showMusicPlayer(songIndex);
+      });
+    });
+    
+    // Back button event listener
+    backBtn.addEventListener('click', showDiscography);
+    
+    // Player event listeners
+    playBtn.addEventListener('click', () => {
+      isPlaying ? pauseSong() : playSong();
+    });
+    
+    prevBtn.addEventListener('click', prevSong);
+    nextBtn.addEventListener('click', nextSong);
+    repeatBtn.addEventListener('click', toggleRepeat);
+    
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('ended', handleSongEnd);
+    audio.addEventListener('loadedmetadata', () => {
+      durationEl.textContent = `${Math.floor(audio.duration / 60)}:${Math.floor(audio.duration % 60).toString().padStart(2, '0')}`;
+    });
+    
+    progressContainer.addEventListener('click', setProgress);
+    volumeSlider.addEventListener('input', setVolume);
+    volumeToggle.addEventListener('click', toggleVolumeControl);
+    
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      switch(e.code) {
+        case 'Space':
+          e.preventDefault();
+          isPlaying ? pauseSong() : playSong();
+          break;
+        case 'ArrowLeft':
+          audio.currentTime = Math.max(0, audio.currentTime - 5);
+          break;
+        case 'ArrowRight':
+          audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+          break;
+        case 'ArrowUp':
+          volumeSlider.value = Math.min(1, parseFloat(volumeSlider.value) + 0.1);
+          setVolume.call(volumeSlider);
+          break;
+        case 'ArrowDown':
+          volumeSlider.value = Math.max(0, parseFloat(volumeSlider.value) - 0.1);
+          setVolume.call(volumeSlider);
+          break;
+        case 'KeyR':
+          toggleRepeat();
+          break;
+      }
+    });
+    
+    // Initialize by showing discography page
+    showDiscography();
+  </script>
+</body>
+</html>
