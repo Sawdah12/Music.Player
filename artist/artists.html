@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Music Player</title>
     <style>
         /* Common Styles */
@@ -93,33 +94,7 @@
             40% { transform: translateY(-10px) translateX(-50%); }
             60% { transform: translateY(-5px) translateX(-50%); }
         }
-    </style>
-</head>
-<body>
-    <div class="page-container">
-        <!-- Page 1 - Music Player -->
-        <section class="page1" id="page1">
-            <video autoplay muted loop class="video-bg">
-                <source src="E:/projects/Music Player/home page.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            
-            <div class="title-container">
-                <h1 class="music-title">Music Player</h1>
-            </div>
-
-            <div class="scroll-prompt">Scroll Down</div>
-        </section>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Trending Artists</title>
-  <style>
-    body {
+         body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #4a235a;
       margin: 0;
@@ -213,11 +188,25 @@
         font-size: 1rem;
       }
     }
-  </style>
+    </style>
 </head>
 <body>
+    <div class="page-container">
+        <!-- Page 1 - Music Player -->
+        <section class="page1" id="page1">
+            <video autoplay muted loop class="video-bg">
+               <source src="home-page.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+            <div class="title-container">
+                <h1 class="music-title">Music Player</h1>
+            </div>
 
-  <section id="trending">
+            <div class="scroll-prompt">Scroll Down</div>
+        </section>
+    </div>
+     <section id="trending">
     <div class="container">
       <h4 class="text-center section-heading">Artists</h4>
       
@@ -225,7 +214,7 @@
         <!-- Artist 1 - Ali Zafar -->
         <a href="ali zafar/ali.zafar.html" class="artist-link">
           <div class="artist-card">
-            <img src="E:/projects/Music Player/pics/ali zafar.jpg" alt="Ali Zafar">
+        <img src="pics/ali-zafar.jpg">
             <div class="card-details">
               <h3>Ali Zafar</h3>
             </div>
@@ -254,6 +243,5 @@
       </div>
     </div>
   </section>
-
 </body>
 </html>
