@@ -1,145 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Trending Artists</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player - Singers</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #4a235a;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 1000px;
-      margin: auto;
-      padding: 1.5rem 0;
-    }
-
-    .text-center {
+      font-family: Arial, sans-serif;
       text-align: center;
+      background: #f4f4f4;
     }
-
-    .section-heading {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: #ffffff;
-      letter-spacing: 1px;
-      font-weight: 300;
+    h1 {
+      margin: 20px 0;
     }
-
-    .artists-grid {
+    .singers {
       display: flex;
       justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 30px;
     }
-
-    .artist-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    .singer {
+      background: white;
       padding: 15px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      width: 200px;
     }
-
-    .artist-card:hover {
+    .singer:hover {
       transform: scale(1.05);
     }
-
-    .artist-card img {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
+    .singer img {
+      width: 100%;
+      height: 220px;
       object-fit: cover;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      margin-bottom: 12px;
+      border-radius: 10px;
     }
-
-    .card-details h3 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: #f7f4f4;
-      font-weight: 500;
-    }
-
-    .artist-link {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    @media (max-width: 768px) {
-      .artists-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-      }
-      
-      .section-heading {
-        font-size: 1.8rem;
-      }
-
-      .artist-card img {
-        width: 100px;
-        height: 100px;
-      }
-      
-      .card-details h3 {
-        font-size: 1rem;
-      }
+    .singer h3 {
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <section id="trending">
-    <div class="container">
-      <h4 class="text-center section-heading">Artists</h4>
-      
-      <div class="artists-grid">
-        <!-- Artist 1 - Ali Zafar -->
-        <a href="ali.zafar.html" class="artist-link">
-          <div class="artist-card">
-            <img src="https://raw.githubusercontent.com/Sawdah12/Music.Player/main/pics/ali%20zafar.jpg" alt="Ali Zafar">
-            <div class="card-details">
-              <h3>Ali Zafar</h3>
-            </div>
-          </div>
-        </a>
+  <h1>Choose Your Favorite Singer</h1>
 
-        <!-- Artist 2 - Atif Aslam -->
-        <a href="atif.aslam.html" class="artist-link">
-          <div class="artist-card">
-            <img src="https://raw.githubusercontent.com/Sawdah12/Music.Player/main/pics/atif%20aslam.jpg" alt="Atif Aslam">
-            <div class="card-details">
-              <h3>Atif Aslam</h3>
-            </div>
-          </div>
-        </a>
-
-        <!-- Artist 3 - Arijit Singh -->
-        <a href="arjit.html" class="artist-link">
-          <div class="artist-card">
-            <img src="https://raw.githubusercontent.com/Sawdah12/Music.Player/main/pics/arjit%20singh.jpg" alt="Arijit Singh">
-            <div class="card-details">
-              <h3>Arijit Singh</h3>
-            </div>
-          </div>
-        </a>
-      </div>
+  <div class="singers">
+    <div class="singer">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4Yc4jrMCCsqWwZ-ii7rh2yZebC3V73hRKDA&s" alt="Ali Zafar">
+      <h3>Ali Zafar</h3>
     </div>
-  </section>
+    <div class="singer">
+      <img src="https://cdn.gemtracks.com/img/how-did-atif-aslam-get-discovered-net-worth-3719.jpg" alt="Atif Aslam">
+      <h3>Atif Aslam</h3>
+    </div>
+    <div class="singer">
+      <img src="https://i.scdn.co/image/ab6761610000e5eb5ba2d75eb08a2d672f9b69b7" alt="Arijit Singh">
+      <h3>Arijit Singh</h3>
+    </div>
+  </div>
 
 </body>
 </html>
